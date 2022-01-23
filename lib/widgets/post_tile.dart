@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 
 class PostTile extends StatefulWidget {
@@ -44,13 +42,45 @@ class _PostTileState extends State<PostTile> {
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
           ),
-          subtitle: Text(
-            widget.blogPostContent,
-            style: const TextStyle(fontSize: 13.0),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 4,
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                  widget.date,
+                  style: const TextStyle(color: Colors.grey, fontSize: 12.0)
+              ),
+              Text(
+                widget.blogPostContent,
+                style: const TextStyle(fontSize: 13.0),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 4,
+
+              ),
+              Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                direction: Axis.horizontal,
+                children: const [
+                  Chip(
+                    label: Text('Test')
+                  ),
+                  Chip(
+                      label: Text('Test')
+                  ),
+                  Chip(
+                      label: Text('Test')
+                  ),
+                  Chip(
+                      label: Text('Test')
+                  ),Chip(
+                      label: Text('Test')
+                  ),
+                  Chip(
+                      label: Text('Test')
+                  )
+                ],
+              )
+            ],
           ),
-          trailing: Text(widget.date, style: const TextStyle(color: Colors.grey, fontSize: 12.0)),
         ),
       ),
     );
