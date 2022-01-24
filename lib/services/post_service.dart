@@ -1,5 +1,5 @@
+import 'package:bolzplatzarena.blog.app/models/post_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:reminder/models/post_model.dart';
 
 String url = 'https://www.bolzplatzarena.net/api/byslug/';
 

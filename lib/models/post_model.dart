@@ -11,7 +11,6 @@ List<Post> postsFromJson(String str) {
 }
 
 class Post {
-
   Post({required this.id, required this.date, required this.title});
 
   final DateTime date;

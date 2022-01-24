@@ -1,7 +1,7 @@
+import 'package:bolzplatzarena.blog.app/services/post_service.dart';
 import 'package:flutter/material.dart';
-import 'package:reminder/services/post_service.dart';
-import 'package:reminder/widgets/post_tile.dart';
 import 'package:intl/intl.dart';
+import 'package:bolzplatzarena.blog.app/widgets/post_tile.dart';
 
 import 'models/post_model.dart';
 
