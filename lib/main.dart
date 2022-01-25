@@ -46,15 +46,16 @@ class _MyHomePageState extends State<MyHomePage> {
             builder: (context, snapshot) {
               if(snapshot.connectionState == ConnectionState.done) {
                 if(snapshot.hasError){
-                  return const Text("Error");
+                  return Text(snapshot.error!.toString() + snapshot.stackTrace!.toString());
                 }
                 return Column(
                   children: snapshot.data != null
                       ? snapshot.data !.map((e) => PostTile(
                     userId: 'TR',
-                    blogPostId: e.title,
-                    blogPostContent: e.title,
+                    blogPostId: e.id,
+                    blogPostContent: e.text,
                     blogPostTitle: e.title,
+                    tags: e.tags,
                     date: DateFormat("dd. MMM yyyy").format(e.date),
                   )).toList()
                       : [],
