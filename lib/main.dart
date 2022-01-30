@@ -62,11 +62,39 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               }
               else {
-                return const CircularProgressIndicator();
+                return Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+                    ),
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  ],
+                );
               }
             }
             ),
-      )
+      ),
+      drawer: Drawer(
+        child: Container(
+          color: Theme.of(context).primaryColor,
+          child: ListView(
+            padding: EdgeInsets.only(top: 50.0),
+            children: <Widget>[
+              ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                leading: const Icon(Icons.home, color: Colors.black87),
+                title: const Text('Home', style: TextStyle(fontSize: 16.0, color: Colors.black87)),
+                onTap: () {
+                  setState(() {});
+                  Navigator.pop(context);
+                }
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
