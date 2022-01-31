@@ -1,6 +1,8 @@
 import 'package:bolzplatzarena.blog.app/models/navigation_item_model.dart';
 import 'package:bolzplatzarena.blog.app/models/post_model.dart';
+import 'package:bolzplatzarena.blog.app/models/screen_arguments.dart';
 import 'package:bolzplatzarena.blog.app/services/post_service.dart';
+import 'package:bolzplatzarena.blog.app/widgets/content_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:bolzplatzarena.blog.app/widgets/post_tile.dart';
@@ -69,10 +71,22 @@ class _AppState extends State<App> {
                   leading: const Icon(Icons.view_compact, color: Colors.black87),
                   title: Text(entry.title, style: const TextStyle(fontSize: 16.0, color: Colors.black87)),
                   onTap: () {
-                    if(entry.title == "Startseite") {
-                      setState(() {});
+                    // todo: how the handle this fix string
+                    if(entry.title != "Startseite") {
+                      // close the drawer and go the bolzplatz arena content page
                       Navigator.pop(context);
+                      Navigator.pushNamed(
+                        context,
+                        ContentScreen.routeName,
+                        arguments: ScreenArguments(
+                          entry.title,
+                          entry.title
+                        ),
+                      );
+                      return;
                     }
+                    setState(() {});
+                    Navigator.pop(context);
                   }
               )).toList()
           ),

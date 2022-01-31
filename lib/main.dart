@@ -1,6 +1,7 @@
 import 'package:bolzplatzarena.blog.app/models/navigation_item_model.dart';
 import 'package:bolzplatzarena.blog.app/services/navigation_service.dart';
 import 'package:bolzplatzarena.blog.app/widgets/app.dart';
+import 'package:bolzplatzarena.blog.app/widgets/content_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,6 +19,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
       ),
       home: const LoadingPage(title: 'Bolzplatzarena'),
+      routes: {
+        ContentScreen.routeName: (context) => const ContentScreen(),
+      },
     );
   }
 }
