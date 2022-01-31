@@ -1,9 +1,7 @@
 import 'package:bolzplatzarena.blog.app/models/navigation_item_model.dart';
 import 'package:bolzplatzarena.blog.app/services/navigation_service.dart';
-import 'package:bolzplatzarena.blog.app/services/post_service.dart';
 import 'package:bolzplatzarena.blog.app/widgets/app.dart';
 import 'package:flutter/material.dart';
-import 'models/post_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,21 +17,21 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: const MyHomePage(title: 'Bolzplatzarena'),
+      home: const LoadingPage(title: 'Bolzplatzarena'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class LoadingPage extends StatefulWidget {
+  const LoadingPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<LoadingPage> createState() => _LoadingPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _LoadingPageState extends State<LoadingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
