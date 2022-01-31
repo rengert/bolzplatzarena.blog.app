@@ -1,3 +1,4 @@
+import 'package:bolzplatzarena.blog.app/models/navigation_item_model.dart';
 import 'package:bolzplatzarena.blog.app/models/post_model.dart';
 import 'package:bolzplatzarena.blog.app/services/post_service.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +6,10 @@ import 'package:intl/intl.dart';
 import 'package:bolzplatzarena.blog.app/widgets/post_tile.dart';
 
 class App extends StatefulWidget {
-  const App({ Key? key, required this.title }) : super(key: key);
+  const App({ Key? key, required this.title, required this.navigation }) : super(key: key);
 
   final String title;
+  final List<NavigationItem> navigation;
 
   @override
   State<App> createState() => _AppState();
@@ -61,17 +63,18 @@ class _AppState extends State<App> {
           color: Theme.of(context).primaryColor,
           child: ListView(
             padding: const EdgeInsets.only(top: 50.0),
-            children: <Widget>[
-              ListTile(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                  leading: const Icon(Icons.home, color: Colors.black87),
-                  title: const Text('Home', style: TextStyle(fontSize: 16.0, color: Colors.black87)),
+            children:
+              widget.navigation.map((entry) => ListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+                  leading: const Icon(Icons.view_compact, color: Colors.black87),
+                  title: Text(entry.title, style: const TextStyle(fontSize: 16.0, color: Colors.black87)),
                   onTap: () {
-                    setState(() {});
-                    Navigator.pop(context);
+                    if(entry.title == "Startseite") {
+                      setState(() {});
+                      Navigator.pop(context);
+                    }
                   }
-              ),
-            ],
+              )).toList()
           ),
         ),
       ),

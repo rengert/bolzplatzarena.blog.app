@@ -1,8 +1,8 @@
+import 'package:bolzplatzarena.blog.app/models/navigation_item_model.dart';
+import 'package:bolzplatzarena.blog.app/services/navigation_service.dart';
 import 'package:bolzplatzarena.blog.app/services/post_service.dart';
+import 'package:bolzplatzarena.blog.app/widgets/app.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:bolzplatzarena.blog.app/widgets/post_tile.dart';
-
 import 'models/post_model.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Bolzplatzarena',
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
@@ -37,64 +37,39 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: SingleChildScrollView(
-        child: FutureBuilder<List<Post>>(
-            future: getPosts(),
-            builder: (context, snapshot) {
+      body: FutureBuilder<List<NavigationItem>>(
+          future: getNavigation(),
+          builder: (context, snapshot) {
               if(snapshot.connectionState == ConnectionState.done) {
                 if(snapshot.hasError){
                   return Text(snapshot.error!.toString() + snapshot.stackTrace!.toString());
                 }
-                return Column(
-                  children: snapshot.data != null
-                      ? snapshot.data !.map((e) => PostTile(
-                    userId: 'TR',
-                    blogPostId: e.id,
-                    blogPostContent: e.text,
-                    blogPostTitle: e.title,
-                    tags: e.tags,
-                    date: DateFormat("dd. MMM yyyy").format(e.date),
-                  )).toList()
-                      : [],
-                );
+                return App(title: widget.title, navigation: snapshot.data!);
               }
               else {
                 return Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 150.0),
                     ),
-                    const Center(
-                      child: CircularProgressIndicator(),
+                    Center(
+                      child: Column(
+                          children: [
+                            const CircularProgressIndicator(),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 15.0),
+                              child: const Text('Die Bolzplatzarena wird vorbereitet.'),
+                            )
+                          ],
+                      )
                     )
                   ],
                 );
               }
             }
-            ),
-      ),
-      drawer: Drawer(
-        child: Container(
-          color: Theme.of(context).primaryColor,
-          child: ListView(
-            padding: EdgeInsets.only(top: 50.0),
-            children: <Widget>[
-              ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                leading: Icon(Icons.home, color: Colors.black87),
-                title: Text('Home', style: TextStyle(fontSize: 16.0, color: Colors.black87)),
-                onTap: () {
-                  setState(() {});
-                  Navigator.pop(context);
-                }
-              ),
-            ],
-          ),
-        ),
-      ),
+      )
     );
   }
 }
+
+
