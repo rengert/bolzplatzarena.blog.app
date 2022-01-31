@@ -1,11 +1,11 @@
 import 'package:bolzplatzarena.blog.app/models/navigation_item_model.dart';
-import 'package:bolzplatzarena.blog.app/models/post_model.dart';
+import 'package:bolzplatzarena.blog.app/models/post_teaser_model.dart';
 import 'package:bolzplatzarena.blog.app/models/screen_arguments.dart';
 import 'package:bolzplatzarena.blog.app/services/post_service.dart';
 import 'package:bolzplatzarena.blog.app/widgets/content_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:bolzplatzarena.blog.app/widgets/post_tile.dart';
+import 'package:bolzplatzarena.blog.app/widgets/post_teaser_tile.dart';
 
 class App extends StatefulWidget {
   const App({ Key? key, required this.title, required this.navigation }) : super(key: key);
@@ -25,8 +25,8 @@ class _AppState extends State<App> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
-        child: FutureBuilder<List<Post>>(
-            future: getPosts(),
+        child: FutureBuilder<List<PostTeaser>>(
+            future: getPostTeasers(),
             builder: (context, snapshot) {
               if(snapshot.connectionState == ConnectionState.done) {
                 if(snapshot.hasError){
@@ -34,7 +34,7 @@ class _AppState extends State<App> {
                 }
                 return Column(
                   children: snapshot.data != null
-                      ? snapshot.data !.map((e) => PostTile(
+                      ? snapshot.data !.map((e) => PostTeaserTile(
                     userId: 'TR',
                     blogPostId: e.id,
                     blogPostContent: e.text,
@@ -79,6 +79,8 @@ class _AppState extends State<App> {
                         context,
                         ContentScreen.routeName,
                         arguments: ScreenArguments(
+                          entry.id,
+                          entry.link,
                           entry.title,
                           entry.title
                         ),

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:bolzplatzarena.blog.app/models/tag_model.dart';
 
+import 'block_model.dart';
+
 Post postFromJson(String str) {
   final jsonData = json.decode(str);
   return Post.fromJson(jsonData);
@@ -15,26 +17,25 @@ List<Post> postsFromJson(String str) {
 class Post {
   Post({
     required this.id,
-    required this.date,
     required this.title,
     required this.text,
-    required this.tags,
+    required this.blocks,
   });
 
-  final DateTime date;
   final String id;
   final String title;
   final String text;
-  final List<Tag> tags;
+  final List<Block> blocks;
 
   factory Post.fromJson(Map<String, dynamic> data) {
+    final id = (data['slug'] ?? data['link']) as String;
     final title = data['title'] as String;
-    final body = (data['body'] as dynamic)['value'];
-    final id = data['link'] as String;
-    final date = DateTime.parse(data['date'] as String);
-    final tags = (data['tags'] as List<dynamic>)
-        .map((e) => Tag.fromJson(e));
+    final body = data['body'] != null ? (data['body'] as dynamic)['value'] : '';
 
-    return Post(id: id, date: date, title: title, text: body, tags: tags.toList());
+    final blocks = data['blocks'] != null
+      ? (data['blocks'] as List<dynamic>).map((e) => Block.fromJson(e)).toList()
+        : List<Block>.empty();
+
+    return Post(id: id, title: title, text: body, blocks: blocks.toList());
   }
 }
