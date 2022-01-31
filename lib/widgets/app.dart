@@ -1,39 +1,19 @@
+import 'package:bolzplatzarena.blog.app/models/post_model.dart';
 import 'package:bolzplatzarena.blog.app/services/post_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:bolzplatzarena.blog.app/widgets/post_tile.dart';
 
-import 'models/post_model.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
-      home: const MyHomePage(title: 'Bolzplatzarena'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class App extends StatefulWidget {
+  const App({ Key? key, required this.title }) : super(key: key);
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<App> createState() => _AppState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,22 +54,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               }
             }
-            ),
+        ),
       ),
       drawer: Drawer(
         child: Container(
           color: Theme.of(context).primaryColor,
           child: ListView(
-            padding: EdgeInsets.only(top: 50.0),
+            padding: const EdgeInsets.only(top: 50.0),
             children: <Widget>[
               ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                leading: Icon(Icons.home, color: Colors.black87),
-                title: Text('Home', style: TextStyle(fontSize: 16.0, color: Colors.black87)),
-                onTap: () {
-                  setState(() {});
-                  Navigator.pop(context);
-                }
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                  leading: const Icon(Icons.home, color: Colors.black87),
+                  title: const Text('Home', style: TextStyle(fontSize: 16.0, color: Colors.black87)),
+                  onTap: () {
+                    setState(() {});
+                    Navigator.pop(context);
+                  }
               ),
             ],
           ),
