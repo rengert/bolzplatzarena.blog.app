@@ -22,7 +22,7 @@ class ContentScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: FutureBuilder<Post>(
-            future: getPost(args.id),
+            future: getPost(args.link),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasError || snapshot.data == null) {
@@ -34,8 +34,13 @@ class ContentScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10.0, vertical: 10.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(post.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                        Text(
+                            post.title,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)
+                        ),
                         ...post.blocks.map((e) =>
                             Html(
                               data: e.body,

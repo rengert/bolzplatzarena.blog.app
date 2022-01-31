@@ -69,9 +69,11 @@ class _PostTeaserTileState extends State<PostTeaserTile> {
                 data: widget.blogPostContent,
                 style: {
                   '*': Style(
-                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                    margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                    textAlign: TextAlign.justify
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 0),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 0),
+                      textAlign: TextAlign.justify
                   ),
                 },
               ),
@@ -79,9 +81,16 @@ class _PostTeaserTileState extends State<PostTeaserTile> {
                 spacing: 4,
                 alignment: WrapAlignment.spaceBetween,
                 direction: Axis.horizontal,
-                children: widget.tags.map((tag) => Chip(
-                    label: Text(tag.title)
-                )).toList(),
+                children: widget.tags.map((tag) =>
+                    Chip(
+                        backgroundColor: const Color.fromARGB(255, 37, 99, 235),
+                        label: Text(
+                            tag.title,
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 243, 244, 246),
+                            )
+                        )
+                    )).toList(),
               )
             ],
           ),
