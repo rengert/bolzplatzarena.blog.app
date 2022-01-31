@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'package:bolzplatzarena.blog.app/models/screen_arguments.dart';
 import 'package:bolzplatzarena.blog.app/models/tag_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+
+import 'content_screen.dart';
 
 class PostTile extends StatefulWidget {
   final String userId;
@@ -30,7 +33,14 @@ class _PostTileState extends State<PostTile> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlogPostPage(userId: _user.uid, blogPostId: widget.blogPostId)));
+        Navigator.pushNamed(
+          context,
+          ContentScreen.routeName,
+          arguments: ScreenArguments(
+              widget.blogPostTitle,
+              widget.blogPostContent
+          ),
+        );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 1.0, vertical: 5.0),
