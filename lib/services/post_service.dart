@@ -2,7 +2,9 @@ import 'package:bolzplatzarena.blog.app/models/post_model.dart';
 import 'package:bolzplatzarena.blog.app/models/post_teaser_model.dart';
 import 'package:http/http.dart' as http;
 
-String url = 'http://localhost:5000/api/byslug';
+import 'base_service.dart';
+
+String url = '${baseUrl()}/api/byslug';
 
 Future<Post> getPost(String slug) async{
   final slash = slug.startsWith('/') ? '' : '/';

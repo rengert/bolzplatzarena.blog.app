@@ -1,8 +1,8 @@
 import 'dart:convert';
-
+import 'package:bolzplatzarena.blog.app/services/base_service.dart';
 import 'package:http/http.dart' as http;
 
-String url = 'https://www.bolzplatzarena.net/api/comment';
+String url = '${baseUrl()}/api/comment';
 
 Future<bool> sendFeedback(String slug, String name, String comment) async {
   if(!slug.startsWith("/blog/")) {
