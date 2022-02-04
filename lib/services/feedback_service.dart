@@ -1,8 +1,16 @@
 import 'dart:convert';
+import 'package:bolzplatzarena.blog.app/models/feedback_model.dart';
 import 'package:bolzplatzarena.blog.app/services/base_service.dart';
 import 'package:http/http.dart' as http;
 
 String url = '${baseUrl()}/api/comment';
+String commentsUrl = '${baseUrl()}/api/comments';
+
+
+Future<List<Feedback>> getFeedbacks() async {
+  final response = await http.get(Uri.parse(commentsUrl));
+  return feedbacksFromJson(response.body);
+}
 
 Future<bool> sendFeedback(String slug, String name, String comment) async {
   if(!slug.startsWith("/blog/")) {

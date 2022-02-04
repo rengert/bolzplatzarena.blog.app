@@ -1,5 +1,7 @@
+import 'package:bolzplatzarena.blog.app/models/feedback_model.dart' as feedback_model;
 import 'package:bolzplatzarena.blog.app/services/feedback_service.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class FeedbackWidget extends StatefulWidget {
   final String slug;
@@ -28,6 +30,54 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
         children: <Widget>[
           const Text(
               "Feedback",
+              textAlign: TextAlign.left,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)
+          ),
+          FutureBuilder<List<feedback_model.Feedback>>(
+              future: getFeedbacks(),
+              builder: (context, snapshot) {
+                if(snapshot.connectionState == ConnectionState.done) {
+                  if(snapshot.hasError){
+                    return Text(snapshot.error!.toString() + snapshot.stackTrace!.toString());
+                  }
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: snapshot.data !.map((feedback) =>
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                              '${feedback.author} (${DateFormat("dd. MMM yyyy").format(feedback.created)})',
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)
+                          ),
+                          Text(
+                              feedback.comment,
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(fontSize: 12.0)
+                          ),
+                        ],
+                      ),
+
+                    ).toList(),
+                  );
+                }
+                else {
+                  return Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+                      ),
+                      const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    ],
+                  );
+                }
+              }
+          ),
+          const Text(
+              "Feedback geben",
               textAlign: TextAlign.left,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)
           ),
