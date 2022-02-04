@@ -16,8 +16,8 @@ class FeedbackWidget extends StatefulWidget {
 class _FeedbackWidgetState extends State<FeedbackWidget> {
   final _formKey = GlobalKey<FormState>();
 
-  String name = "";
-  String comment = "";
+  final name = TextEditingController();
+  final comment = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +32,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)
           ),
           TextFormField(
+            controller: name,
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
               labelText: 'Dein Name',
@@ -42,13 +43,9 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
               }
               return null;
             },
-            onFieldSubmitted: (value) {
-              setState(() {
-                name = value;
-              });
-            },
           ),
           TextFormField(
+            controller: comment,
             maxLines: 5,
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
@@ -60,16 +57,11 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
               }
               return null;
             },
-            onFieldSubmitted: (value) {
-              setState(() {
-                comment = value;
-              });
-            },
           ),
           ElevatedButton(
             onPressed: () async {
               if (_formKey.currentState!.validate()) {
-                if(await sendFeedback(widget.slug, name, comment)) {
+                if(await sendFeedback(widget.slug, name.value.text, comment.value.text)) {
                   _formKey.currentState?.reset();
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Vielen Dank für Ihren Kommentar dieser wird geprüft und schnellstmöglich veröffentlicht')),

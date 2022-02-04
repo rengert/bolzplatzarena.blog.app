@@ -25,7 +25,7 @@ class PostTeaser {
   factory PostTeaser.fromJson(Map<String, dynamic> data) {
     final id = data['link'] as String;
     final title = data['title'] as String;
-    final body = (data['body'] as dynamic)['value'];
+    final body = (data['body'] as dynamic)['value'] ?? ""; // Just to play it save
     final date = DateTime.parse(data['date'] as String);
 
     final tags = (data['tags'] as List<dynamic>)
