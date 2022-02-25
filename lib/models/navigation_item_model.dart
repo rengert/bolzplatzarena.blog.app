@@ -1,9 +1,15 @@
 import 'dart:convert';
 
 List<NavigationItem> navigationFromJson(String str) {
-  final jsonData = json.decode(str);
-  return List<NavigationItem>.from(jsonData.map((jsonString) => NavigationItem.fromJson(jsonString)));
+  try {
+    final jsonData = json.decode(str);
+    return List<NavigationItem>.from(jsonData.map((jsonString) => NavigationItem.fromJson(jsonString)));
+  } catch (error, stackTrace) {
+    //
+  }
+  return List<NavigationItem>.empty();
 }
+
 
 class NavigationItem {
   NavigationItem(this.id, this.link, this.title);

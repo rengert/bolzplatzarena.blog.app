@@ -58,7 +58,6 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                           ),
                         ],
                       ),
-
                     ).toList(),
                   );
                 }
