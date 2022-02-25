@@ -3,6 +3,7 @@ import 'package:bolzplatzarena.blog.app/models/post_model.dart';
 import 'package:bolzplatzarena.blog.app/models/screen_arguments.dart';
 import 'package:bolzplatzarena.blog.app/services/post_service.dart';
 import 'package:bolzplatzarena.blog.app/widgets/code_block.dart';
+import 'package:bolzplatzarena.blog.app/widgets/feedback_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -43,7 +44,8 @@ class ContentScreen extends StatelessWidget {
                             textAlign: TextAlign.left,
                             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)
                         ),
-                        ...post.blocks.map((e) => getWidget(e)).toList()
+                        ...post.blocks.map((e) => getWidget(e)).toList(),
+                        ...[args.link.contains("blog") ? FeedbackWidget(slug: post.id) : const Text("")]
                       ],
                     )
                 );

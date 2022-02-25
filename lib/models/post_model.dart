@@ -1,9 +1,16 @@
 import 'dart:convert';
+import 'package:bolzplatzarena.blog.app/services/loggin.util.dart';
+
 import 'block_model.dart';
 
 Post postFromJson(String str) {
-  final jsonData = json.decode(str);
-  return Post.fromJson(jsonData);
+  try {
+    final jsonData = json.decode(str);
+    return Post.fromJson(jsonData);
+  } catch(error, stackTrace) {
+    logger.e('Post cannot be loaded', error, stackTrace);
+    rethrow;
+  }
 }
 
 List<Post> postsFromJson(String str) {

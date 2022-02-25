@@ -1,13 +1,25 @@
 import 'dart:convert';
 
+import 'package:bolzplatzarena.blog.app/services/loggin.util.dart';
+
 Tag tagFromJson(String str) {
-  final jsonData = json.decode(str);
-  return Tag.fromJson(jsonData);
+  try {
+    final jsonData = json.decode(str);
+    return Tag.fromJson(jsonData);
+  } catch(error, stackTrace) {
+    logger.e('Tag cannot be loaded', error, stackTrace);
+    rethrow;
+  }
 }
 
 List<Tag> tagsFromJson(String str) {
-  final jsonData = json.decode(str);
-  return List<Tag>.from(jsonData['tags'].map((postJsonString) => Tag.fromJson(postJsonString)));
+  try {
+    final jsonData = json.decode(str);
+    return List<Tag>.from(jsonData['tags'].map((postJsonString) => Tag.fromJson(postJsonString)));
+  } catch(error, stackTrace) {
+    logger.e('Tags cannot be loaded', error, stackTrace);
+    return List<Tag>.empty();
+  }
 }
 
 class Tag {
