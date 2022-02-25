@@ -1,9 +1,16 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:bolzplatzarena.blog.app/services/loggin.util.dart';
+
 List<Feedback> feedbacksFromJson(String str) {
-  final jsonData = json.decode(str);
-  return List<Feedback>.from(jsonData.map((data) =>  Feedback.fromJson(data)));
+  try {
+    final jsonData = json.decode(str);
+    return List<Feedback>.from(jsonData.map((data) =>  Feedback.fromJson(data)));
+  } catch(error, stackTrace) {
+    logger.e('Feedback cannot be loaded', error, stackTrace);
+    return List<Feedback>.empty();
+  }
 }
 
 class Feedback {

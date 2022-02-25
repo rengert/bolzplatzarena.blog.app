@@ -1,10 +1,16 @@
 import 'dart:convert';
 
 import 'package:bolzplatzarena.blog.app/models/tag_model.dart';
+import 'package:bolzplatzarena.blog.app/services/loggin.util.dart';
 
 List<PostTeaser> postTeasersFromJson(String str) {
-  final jsonData = json.decode(str);
-  return List<PostTeaser>.from(jsonData['posts'].map((postJsonString) => PostTeaser.fromJson(postJsonString)));
+  try {
+    final jsonData = json.decode(str);
+    return List<PostTeaser>.from(jsonData['posts'].map((postJsonString) => PostTeaser.fromJson(postJsonString)));
+  } catch(error, stackTrace) {
+    logger.e('Post teasers cannot be loaded', error, stackTrace);
+    return List<PostTeaser>.empty();
+  }
 }
 
 class PostTeaser {

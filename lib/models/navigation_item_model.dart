@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:bolzplatzarena.blog.app/services/loggin.util.dart';
+
 List<NavigationItem> navigationFromJson(String str) {
   try {
     final jsonData = json.decode(str);
     return List<NavigationItem>.from(jsonData.map((jsonString) => NavigationItem.fromJson(jsonString)));
   } catch (error, stackTrace) {
-    //
+    logger.e('Navigation cannot be loaded', error, stackTrace);
   }
   return List<NavigationItem>.empty();
 }
